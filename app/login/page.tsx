@@ -27,6 +27,11 @@ export default function LoginPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    const userData = {
+      name: formData.email.split('@')[0], // Use email prefix as name
+      email: formData.email
+    }
+    localStorage.setItem('loggedInUser', JSON.stringify(userData))
     setMessage("Login successful! Redirecting...")
     setTimeout(() => {
       router.push("/")

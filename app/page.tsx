@@ -3,10 +3,19 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [user, setUser] = useState(null)
+
+  // Check for logged in user on component mount
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem('loggedInUser')
+    if (loggedInUser) {
+      setUser(JSON.parse(loggedInUser))
+    }
+  }, [])
 
   const services = [
     { name: "Mobile Recharge", icon: "📱", slug: "mobile-recharge", color: "bg-blue-100 hover:bg-blue-200" },
@@ -62,16 +71,34 @@ export default function Home() {
             </div>
 
             <div className="hidden sm:flex items-center space-x-4">
-              <Link href="/register">
-                <Button variant="outline" size="sm">
-                  Register
-                </Button>
-              </Link>
-              <Link href="/login">
-                <Button size="sm" className="bg-primary hover:bg-primary/90">
-                  Login
-                </Button>
-              </Link>
+              {user ? (
+                <div className="flex items-center space-x-3">
+                  <span className="text-foreground font-medium">Welcome, {user.name}</span>
+                  <Button 
+                    size="sm" 
+                    variant="outline"
+                    onClick={() => {
+                      localStorage.removeItem('loggedInUser')
+                      setUser(null)
+                    }}
+                  >
+                    Logout
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <Link href="/register">
+                    <Button variant="outline" size="sm">
+                      Register
+                    </Button>
+                  </Link>
+                  <Link href="/login">
+                    <Button size="sm" className="bg-primary hover:bg-primary/90">
+                      Login
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
 
             <button
@@ -135,16 +162,36 @@ export default function Home() {
                   FAQs
                 </a>
                 <div className="flex flex-col sm:hidden space-y-3 pt-4 border-t border-border">
-                  <Link href="/register" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button variant="outline" size="sm" className="w-full bg-transparent">
-                      Register
-                    </Button>
-                  </Link>
-                  <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button size="sm" className="bg-primary hover:bg-primary/90 w-full">
-                      Login
-                    </Button>
-                  </Link>
+                  {user ? (
+                    <div className="space-y-3">
+                      <p className="text-foreground font-medium py-2">Welcome, {user.name}</p>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="w-full"
+                        onClick={() => {
+                          localStorage.removeItem('loggedInUser')
+                          setUser(null)
+                          setIsMobileMenuOpen(false)
+                        }}
+                      >
+                        Logout
+                      </Button>
+                    </div>
+                  ) : (
+                    <>
+                      <Link href="/register" onClick={() => setIsMobileMenuOpen(false)}>
+                        <Button variant="outline" size="sm" className="w-full bg-transparent">
+                          Register
+                        </Button>
+                      </Link>
+                      <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
+                        <Button size="sm" className="bg-primary hover:bg-primary/90 w-full">
+                          Login
+                        </Button>
+                      </Link>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
