@@ -155,7 +155,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-center">
             <div className="space-y-6 lg:space-y-8 text-center lg:text-left">
               <div className="space-y-4">
                 <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground leading-tight">
@@ -166,6 +166,27 @@ export default function Home() {
                   <span className="text-primary">utility needs</span>
                 </h1>
                 <p className="text-lg sm:text-xl text-muted-foreground">Recharges & Bill Payments, and a lot more</p>
+              </div>
+
+              <div className="space-y-4">
+                <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+                  Pay your mobile, DTH, electricity, water, gas bills and more with just a few taps. 
+                  Secure, fast, and available 24/7 for over 1.5 million customers across India.
+                </p>
+                <div className="flex items-center space-x-6 text-sm text-muted-foreground">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-green-500">✓</span>
+                    <span>Instant Processing</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-green-500">✓</span>
+                    <span>Secure Payments</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-green-500">✓</span>
+                    <span>24/7 Support</span>
+                  </div>
+                </div>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -187,7 +208,8 @@ export default function Home() {
                 <img
                   src="/smartphone-utility-payments.png"
                   alt="Smartphone showing utility payment services"
-                  className="w-64 sm:w-80 h-auto"
+                  className="w-full max-w-md lg:max-w-lg h-auto bg-transparent"
+                  style={{ backgroundColor: 'transparent' }}
                   onError={(e) => {
                     console.log('Image failed to load:', e.currentTarget.src)
                     e.currentTarget.src = '/placeholder.png'
