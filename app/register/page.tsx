@@ -4,12 +4,14 @@ import type React from "react"
 
 import { useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 export default function RegisterPage() {
+  const router = useRouter()
   const [formData, setFormData] = useState({
     name: "",
     mobile: "",
@@ -18,6 +20,7 @@ export default function RegisterPage() {
     captcha: "",
   })
   const [captchaCode] = useState("09e99d")
+  const [message, setMessage] = useState("")
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -28,8 +31,14 @@ export default function RegisterPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle registration logic here
-    console.log("Registration data:", formData)
+    if (formData.captcha !== captchaCode) {
+      setMessage("Invalid captcha. Please try again.")
+      return
+    }
+    setMessage("Registration successful! Redirecting to login...")
+    setTimeout(() => {
+      router.push("/login")
+    }, 1500)
   }
 
   return (
@@ -42,6 +51,15 @@ export default function RegisterPage() {
           <CardDescription className="text-gray-600">Join SHRIHANPAY FINTECH PRIVATE LIMITED today</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
+          {message && (
+            <div className={`border px-4 py-3 rounded-lg text-center ${
+              message.includes("successful") 
+                ? "bg-green-100 border-green-400 text-green-700" 
+                : "bg-red-100 border-red-400 text-red-700"
+            }`}>
+              {message}
+            </div>
+          )}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">

@@ -53,6 +53,9 @@ export default function Home() {
               <a href="#contact" className="text-foreground hover:text-primary transition-colors">
                 Contact
               </a>
+              <a href="#privacy" className="text-foreground hover:text-primary transition-colors">
+                Privacy Policy
+              </a>
               <a href="#faqs" className="text-foreground hover:text-primary transition-colors">
                 FAQs
               </a>
@@ -118,6 +121,13 @@ export default function Home() {
                   Contact
                 </a>
                 <a
+                  href="#privacy"
+                  className="text-foreground hover:text-primary transition-colors py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Privacy Policy
+                </a>
+                <a
                   href="#faqs"
                   className="text-foreground hover:text-primary transition-colors py-2"
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -177,7 +187,11 @@ export default function Home() {
                 <img
                   src="/smartphone-utility-payments.png"
                   alt="Smartphone showing utility payment services"
-                  className="w-64 sm:w-80 h-auto rounded-3xl shadow-2xl"
+                  className="w-64 sm:w-80 h-auto"
+                  onError={(e) => {
+                    console.log('Image failed to load:', e.currentTarget.src)
+                    e.currentTarget.src = '/placeholder.png'
+                  }}
                 />
               </div>
             </div>
@@ -360,6 +374,65 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Privacy Policy Section */}
+      <section id="privacy" className="py-12 sm:py-16 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8 lg:mb-12">
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4">
+              Privacy <span className="text-primary">Policy</span>
+            </h2>
+            <p className="text-muted-foreground">Your privacy is important to us. Learn how we protect your data.</p>
+          </div>
+
+          <div className="max-w-4xl mx-auto space-y-6">
+            <Card className="p-6 sm:p-8 bg-white/80 backdrop-blur-sm border-primary/20">
+              <CardContent className="space-y-6 p-0">
+                <div>
+                  <h3 className="font-semibold text-lg text-foreground mb-3">Information We Collect</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    We collect information you provide directly to us, such as when you create an account, make a payment, or contact us for support. This includes your name, email address, phone number, and payment information.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="font-semibold text-lg text-foreground mb-3">How We Use Your Information</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    We use your information to provide, maintain, and improve our services, process transactions, send you technical notices and support messages, and communicate with you about products, services, and promotional offers.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="font-semibold text-lg text-foreground mb-3">Data Security</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. All payment transactions are encrypted using industry-standard SSL technology.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="font-semibold text-lg text-foreground mb-3">Information Sharing</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy or as required by law. We may share information with trusted service providers who assist us in operating our platform.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="font-semibold text-lg text-foreground mb-3">Your Rights</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    You have the right to access, update, or delete your personal information. You may also opt out of certain communications from us. To exercise these rights, please contact our support team.
+                  </p>
+                </div>
+
+                <div className="pt-4 border-t border-gray-200">
+                  <p className="text-sm text-muted-foreground">
+                    Last updated: January 2025. For questions about this Privacy Policy, please contact us at privacy@shrihanpay.com
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section id="contact" className="py-12 sm:py-16 bg-gradient-to-br from-purple-50 to-pink-50">
         <div className="container mx-auto px-4">
@@ -494,7 +567,7 @@ export default function Home() {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-secondary transition-colors">
+                  <a href="#privacy" className="hover:text-secondary transition-colors">
                     Privacy Policy
                   </a>
                 </li>

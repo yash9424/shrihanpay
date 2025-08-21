@@ -4,16 +4,19 @@ import type React from "react"
 
 import { useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 export default function LoginPage() {
+  const router = useRouter()
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   })
+  const [message, setMessage] = useState("")
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -24,8 +27,10 @@ export default function LoginPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle login logic here
-    console.log("Login data:", formData)
+    setMessage("Login successful! Redirecting...")
+    setTimeout(() => {
+      router.push("/")
+    }, 1500)
   }
 
   return (
@@ -38,6 +43,11 @@ export default function LoginPage() {
           <CardDescription className="text-gray-600 text-lg">Login to access your account</CardDescription>
         </CardHeader>
         <CardContent className="p-8 space-y-6">
+          {message && (
+            <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg text-center">
+              {message}
+            </div>
+          )}
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="email" className="text-gray-700 font-medium text-lg">
